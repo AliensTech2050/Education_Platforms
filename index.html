@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aliens Tech | الشريك التقني للنمو الرقمي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366F1;
+            --secondary: #8B5CF6;
+            --accent: #00E676;
+            --bg-dark: #090D16;
+            --bg-card: rgba(15, 23, 42, 0.85);
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --warning: #FBBF24;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            text-align: center;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.9;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-150%) skewX(-15deg); }
+            100% { transform: translateX(150%) skewX(-15deg); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .hero {
+            position: relative;
+            padding: 120px 20px 120px;
+            background: 
+                radial-gradient(circle at top center, rgba(99, 102, 241, 0.3) 0%, transparent 70%),
+                var(--bg-dark);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
+            mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+        }
+
+        /* تنسيق الهيدر العلوي ليكون في اليسار */
+        .site-header {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            z-index: 10;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .logo-brand {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            background: rgba(15, 23, 42, 0.85);
+            padding: 8px 25px;
+            border-radius: 50px;
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        .logo-brand .brand-text {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--text-main);
+            letter-spacing: 0.5px;
+        }
+        .logo-brand .brand-text span {
+            color: var(--accent);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            margin-top: 30px;
+        }
+
+        .tagline {
+            display: inline-block;
+            background: rgba(0, 230, 118, 0.1);
+            color: var(--accent);
+            padding: 8px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 6vw, 4.8rem);
+            margin-bottom: 25px;
+            font-weight: 900;
+            background: linear-gradient(to left, #A5B4FC, #38BDF8, #A5B4FC);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 3vw, 1.35rem);
+            max-width: 750px;
+            margin: 0 auto 40px auto;
+            color: var(--text-muted);
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            position: relative;
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            padding: 16px 45px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.6);
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            margin-bottom: 50px;
+            font-weight: 900;
+        }
+        .section-title span {
+            color: var(--accent);
+            position: relative;
+        }
+        .section-title span::after {
+            content: '';
+            position: absolute;
+            bottom: -8px; left: 50%; transform: translateX(-50%); width: 60px; height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .features {
+            padding: 120px 0;
+            background: #090D16;
+        }
+
+        .all-features-badge {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            padding: 25px;
+            border-radius: 20px;
+            margin: 0 auto 60px auto;
+            max-width: 900px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        .all-features-badge span { color: var(--warning); }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            padding: 45px 30px;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 230, 118, 0.5);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .pricing {
+            padding: 120px 0;
+            background: radial-gradient(circle at center, #0F172A 0%, var(--bg-dark) 100%);
+        }
+
+        .pricing-note {
+            color: var(--text-main);
+            margin: -20px auto 60px auto;
+            font-size: 1.1rem;
+            padding: 15px 35px;
+            background: rgba(0, 230, 118, 0.1);
+            border-radius: 50px;
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            display: inline-block;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            align-items: center;
+        }
+
+        .plan-card {
+            background: var(--bg-card);
+            padding: 50px 30px;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.08);
+            position: relative;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .plan-card.popular {
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.98) 0%, rgba(9, 13, 22, 0.98) 100%);
+            border: 2px solid var(--accent);
+            transform: scale(1.04);
+            box-shadow: 0 20px 50px rgba(0, 230, 118, 0.15);
+            z-index: 2;
+        }
+
+        .popular-ribbon {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, #00E676, #059669);
+            color: #000;
+            padding: 6px 22px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            box-shadow: 0 5px 15px rgba(0, 230, 118, 0.3);
+        }
+
+        .plan-card h3 {
+            font-size: 1.6rem;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        
+        .plan-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .price-tag {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--accent);
+            display: block;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 12px;
+            width: 100%;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-top: 25px;
+            width: 100%;
+        }
+
+        .plan-features li {
+            margin-bottom: 15px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .plan-features li::before {
+            content: '✓';
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .demo-btn {
+            display: inline-block;
+            margin-top: 20px;
+            background: rgba(0, 230, 118, 0.1);
+            color: var(--accent);
+            padding: 10px 22px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            transition: all 0.3s;
+        }
+        .demo-btn:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        .footer {
+            background-color: #05070D;
+            padding: 90px 20px 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-col h4 {
+            color: #fff;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%; transform: translateX(-50%); width: 40px; height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .footer-col p, .footer-col a {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 12px;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            background: rgba(255,255,255,0.04);
+            padding: 8px 18px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.08);
+            font-size: 0.9rem;
+        }
+        .social-links a:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        .instapay-box {
+            background: rgba(0, 230, 118, 0.05);
+            border: 1px solid rgba(0, 230, 118, 0.2);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            width: 100%;
+            max-width: 300px;
+        }
+        .instapay-box a {
+            color: var(--accent);
+            font-weight: bold;
+            word-break: break-all;
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .plan-card.popular { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <!-- شريط علوي يضم اسم Aliens Tech في أعلى اليسار -->
+        <div class="site-header">
+            <div class="header-container">
+                <a href="https://www.alienstech.me" class="logo-brand" target="_blank">
+                    <div class="brand-text">Aliens <span>Tech</span></div>
+                </a>
+            </div>
+        </div>
+
+        <div class="container hero-content">
+            <span class="tagline">الجيل الجديد من التعليم الرقمي</span>
+            <h1>حوّل أكاديميتك<br>مع الينزتك<br>إلى<br>كيان رقمي متكامل 🚀</h1>
+            <p>منصة تعليمية ذكية تحمي فيديوهاتك من التسريب، تدير حجوزاتك، وتصحح امتحاناتك بالذكاء الاصطناعي. تفرغ أنت للإبداع، ودع التكنولوجيا لنا.</p>
+            <div class="hero-buttons">
+                <a href="https://wa.me/201221399867" class="btn-primary" target="_blank">اطلب نسختك الآن</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">لماذا نحن <span>الخيار الأول؟</span></h2>
+            
+            <div class="all-features-badge">
+                ✨ <strong>ميزة استثنائية:</strong> جميع الباقات تمتلك كافة الخواص التقنية بالكامل. الفرق الوحيد هو استقلالية علامتك التجارية وحجم استيعاب طلابك.
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">☁️</span>
+                    <h3>مساحة مفتوحة</h3>
+                    <p>نربط منصتك بخوادم (Bunny.net) العالمية لتضمن سرعة تشغيل فائقة بتكلفة استهلاك شبه مجانية (1 جيجا ترافيك = 0.005 دولار فقط).</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🛡️</span>
+                    <h3>حماية فولاذية</h3>
+                    <p>تشفير معقد يمنع برامج التحميل وتصوير الشاشة، مع ظهور "علامة مائية متحركة" باسم ورقم الطالب لمنع أي محاولة تسريب.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3>أتمتة المدفوعات</h3>
+                    <p>سيستم ذكي يفتح الكورس للطالب أوتوماتيكياً فور إتمام الدفع (عبر كافة وسائل الدفع كالكروت، المحافظ الذكية، فوري، أمان، وبساطة وغيرها) ليريحك تماماً من المراجعة اليدوية.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🤖</span>
+                    <h3>تصحيح ذكي</h3>
+                    <p>بنوك أسئلة وتصحيح فوري وآليات قوية لمنع الغش (عداد وقت ومنع النوافذ الأخرى)، مع تقارير شاملة عن أداء كل طالب.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🚀</span>
+                    <h3>استقرار جبار</h3>
+                    <p>لا تقلق وقت الذروة، خوادمنا السحابية مصممة لتتحمل ضغطاً يصل إلى 500,000 طالب متصل في نفس اللحظة بدون توقف.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">💰</span>
+                    <h3>أرباحك كاملة</h3>
+                    <p>لا نأخذ عمولات مبيعات! نظامنا يعتمد فقط على تكلفة التشغيل التي يمكنك إضافتها ببساطة على ثمن الكورس ليتحملها الطالب.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing">
+        <div class="container">
+            <h2 class="section-title">باقات <span>النمو المشترك</span></h2>
+            <div class="pricing-note">
+                <strong>نظام محاسبة مرن:</strong> تدفع 15 جنيهاً فقط شهرياً عن كل طالب "نشط"
+            </div>
+            
+            <div class="plans-grid">
+                <!-- الباقة الأولى -->
+                <div class="plan-card">
+                    <h3>منصة المحترف المجمعة</h3>
+                    <p class="plan-desc">مثالية للانطلاقة وتجربة السوق بقوة</p>
+                    <span class="price-tag">بحد أدنى 1000 ج.م / شهر</span>
+                    <ul class="plan-features">
+                        <li>مخصصة للمدرسين أقل من 200 طالب</li>
+                        <li>كافة المميزات التقنية مفعلة بالكامل</li>
+                        <li>مساحة فيديوهات غير محدودة</li>
+                        <li>ترقية تلقائية لمنصة خاصة عند تخطي 200 طالب</li>
+                    </ul>
+                    <a href="https://elmohtarif.alienstech.me" class="demo-btn" target="_blank">معاينة منصة المحترف ↗</a>
+                </div>
+
+                <!-- الباقة الثانية (المميزة) -->
+                <div class="plan-card popular">
+                    <div class="popular-ribbon">🔥 الأكثر طلباً ونجاحاً</div>
+                    <h3>المنصة المستقلة</h3>
+                    <p class="plan-desc">لأصحاب الجماهيرية والعلامة التجارية</p>
+                    <span class="price-tag">بحد أدنى 3000 ج.م / شهر</span>
+                    <ul class="plan-features">
+                        <li>منصة مستقلة تحمل اسمك وهويتك البصرية</li>
+                        <li>خوادم مخصصة ومستقلة لضمان أقصى سرعة</li>
+                        <li>لوحة تحكم إدارية منفصلة تماماً</li>
+                        <li>دعم فني مخصص ومباشر</li>
+                        <li style="color: #F87171;">تضاف 3000 جنيه مصاريف تأسيس تدفع مرة واحدة</li>
+                    </ul>
+                    <a href="https://www.mrbessadafouad.com" class="demo-btn" target="_blank">معاينة منصة مستر بسادة ↗</a>
+                </div>
+
+                <!-- الباقة الثالثة -->
+                <div class="plan-card">
+                    <h3>الأكاديمية المتكاملة</h3>
+                    <p class="plan-desc">مخصصة للسناتر والكيانات التعليمية الكبيرة</p>
+                    <span class="price-tag">بحد أدنى 5000 ج.م / شهر</span>
+                    <ul class="plan-features">
+                        <li>توحيد الإدارة للسنتر بالكامل في نظام واحد</li>
+                        <li>إضافة طاقم عمل ومحاضرين متعددين</li>
+                        <li>صلاحيات مخصصة لكل محاضر ومساعد</li>
+                        <li>تقارير مالية مجمعة للكيان بالكامل</li>
+                        <li style="color: #F87171;">تضاف 5000 جنيه مصاريف تأسيس تدفع مرة واحدة</li>
+                    </ul>
+                    <a href="https://wa.me/201221399867" class="demo-btn" target="_blank">تواصل لتصميم أكاديميتك ↗</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contact & Legal Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- معلومات الشركة -->
+                <div class="footer-col">
+                    <h4>شركة الينزتك (Aliens Tech)</h4>
+                    <p><strong>الموقع الرسمي:</strong> <a href="https://www.alienstech.me" target="_blank">www.alienstech.me</a></p>
+                    <p><strong>العنوان:</strong> العاشر من رمضان، مصر</p>
+                    <p><strong>الرقم الضريبي:</strong> 986-290-587</p>
+                    <p><strong>رقم التسجيل:</strong> 151766</p>
+                </div>
+
+                <!-- التواصل والسوشيال ميديا -->
+                <div class="footer-col">
+                    <h4>تواصل معنا</h4>
+                    <p><strong>الهاتف / واتساب:</strong> <a href="https://wa.me/201221399867" target="_blank">867 1399 0122 2+</a></p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/alienstech2050" target="_blank">Instagram</a>
+                        <a href="https://www.facebook.com/AliensTech2050" target="_blank">Facebook</a>
+                        <a href="https://www.linkedin.com/company/alienstech2050" target="_blank">LinkedIn</a>
+                        <a href="https://www.threads.com/@alienstech2050" target="_blank">Threads</a>
+                        <a href="https://www.tiktok.com/@alienstech2050" target="_blank">TikTok</a>
+                    </div>
+                </div>
+
+                <!-- طرق الدفع -->
+                <div class="footer-col">
+                    <h4>طرق الدفع الإلكتروني</h4>
+                    <p>نقبل الدفع السريع عبر تطبيق <strong>انستاباي (InstaPay)</strong>:</p>
+                    <div class="instapay-box">
+                        <a href="https://ipn.eg/S/giuseppe/instapay/253j5O" target="_blank">giuseppe@instapay</a>
+                        <span style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;">Powered by InstaPay</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Aliens Tech. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
